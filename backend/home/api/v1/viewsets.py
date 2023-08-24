@@ -1,3 +1,7 @@
+from rest_framework import viewsets
+from home.models import Aouyt,Aouyt,Aouyt
+from .serializers import AouytSerializer,AouytSerializer,AouytSerializer
+from rest_framework import authentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.authtoken.models import Token
@@ -28,3 +32,8 @@ class LoginViewSet(ViewSet):
         token, created = Token.objects.get_or_create(user=user)
         user_serializer = UserSerializer(user)
         return Response({"token": token.key, "user": user_serializer.data})
+
+class AouytViewSet(viewsets.ModelViewSet):
+    serializer_class = AouytSerializer
+    authentication_classes = (authentication.SessionAuthentication, authentication.TokenAuthentication)
+    queryset = Aouyt.objects.all()
